@@ -1,0 +1,520 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Quick Start / Martinhago CMS</title>
+<style type="text/css">
+html,body {
+	text-align: center;
+	margin: 0;
+	font-family: 'Arial', sans-serif;
+	padding: 0;
+}
+
+pre {
+	text-align: left;
+}
+</style>
+
+</head>
+<body>
+
+<!-- Sumário -->
+<div style="float: left; width: 300px; margin-right: 10px;">
+<ul>
+	<li><a href="#instalation">Instalação</a>
+	<ul>
+		<li><a href="#directorys">Diretórios</a></li>
+		<li><a href="#internacionalization">Internacionalização</a></li>
+		<li><a href="#database">Banco de dados</a></li>
+	</ul>
+	</li>
+	<li><a href="#secure">Segurança</a>
+	<ul>
+		<li><a href="#folder_permission">Permissões de pastas</a></li>
+		<li><a href="#system_permission">Permissões do sistema</a></li>
+	</ul>
+	</li>
+	<li><a href="#new_resource">Criando novos recursos</a>
+	<ul>
+		<li><a href="#basic">Básicos ( Somente texto )</a></li>
+		<li><a href="#medium">Intermediários ( Texto e uma imagem )</a></li>
+		<li><a href="#advanced">Avançados ( Com Upload Múltiplo de
+		arquivos )</a></li>
+	</ul>
+	</li>
+	<li><a href="#text_editor">Editores de texto</a></li>
+</ul>
+</div>
+
+<!-- Conteúdo -->
+<div style="float: left; width: 800px;"><!-- Sistema -->
+<div>
+<h1>O Sistema</h1>
+<p>O Sistema foi desenvolvido utilizando PHP, css, Html 5 em algumas
+partes, e javascript com framework jQuery.<br />
+Há módulos/recursos já desenvolvidos utilizando banco de dados MySQL,
+porém foi desacoplado suficientemente para a adaptação para qualquer
+banco de dados.<br />
+A base e o funcionamento do sistema consistem no design pattern MVC (
+Model-View-Controller ).</p>
+</div>
+
+<!-- Instalação -->
+<div class="item"><a id="directorys"></a>
+<h1>Diretórios</h1>
+<p>
+<ul>
+	<li>
+	<dl>
+		<dt>application</dt>
+		<dd>pasta da aplicação, onde contém tudo que o cliente não
+		deve/precisa/pode acessar.</dd>
+	</dl>
+	<ul>
+		<li>cms - biblioteca do cms
+		<ul>
+			<li>
+			<dl>
+				<dt>core</dt>
+				<dd>arquivos do núcleo da aplicação</dd>
+			</dl>
+			</li>
+			<li>
+			<dl>
+				<dt>mvc</dt>
+				<dd>módulos/recursos da aplicação - controladores de
+				requisições, modelos de negócios e camadas de visualizações.</dd>
+			</dl>
+			</li>
+			<li>
+			<dl>
+				<dt>res</dt>
+				<dd>restful / nesta pasta contém os arquivos(.xml) de
+				internacionalização do sistema</dd>
+			</dl>
+			</li>
+			<li>
+			<dl>
+				<dt>smarty</dt>
+				<dd>pastas da engine de template, como compilação de templates,
+				armazenamento de cache e configurações adicionais de um template.</dd>
+			</dl>
+			</li>
+			<li>
+			<dl>
+				<dt>util</dt>
+				<dd>Classes e objetos utilitários do sistema</dd>
+			</dl>
+			</li>
+		</ul>
+		</li>
+		<li>smarty - biblioteca do template engine</li>
+	</ul>
+	</li>
+	<li>
+	<dl>
+		<dt>public</dt>
+		<dd>pasta pública, onde contem os arquivos que o cliente irá
+		acessar e fazer download, também nessa pasta é onde será armazenado os
+		arquivos upados pelo cliente.</dd>
+	</dl>
+	</li>
+</ul>
+</p>
+</div>
+
+<!-- Instalação -->
+<div class="item"><a id="internacionalization"></a>
+<h1>Intercionalização</h1>
+<p>A intenacionalização de strings serve para facilitar a mudança de
+idioma a aplicação e separar os valores de strings do código da
+aplicação.<br />
+<br />
+Como utilizar:<br />
+<p>Abrir o arquivo no local <strong>LOCALDAAPLICAÇÃO/application/cms/res/default.xml</strong>,
+modifique, delete ou crie os recursos desejados.</p>
+No código:
+<p><pre>
+	$resourceBundle = Application::getInstance()->getBundle();
+	
+	//Para strings
+	$nome_da_var = $resourceBundle->getString( 'ID_DO_RECURSO' );
+	
+	//Para integers
+	$nome_da_var = $resourceBundle->getInt( 'ID_DO_RECURSO' );
+	
+	// ... para mais estruturas de dados verifique o código
+	
+	</pre></p>
+</p>
+</div>
+
+
+
+<!-- DATABASE -->
+<div class="item"><a id="database"></a>
+<h1>Banco de dados</h1>
+<p>O Sistema foi desenvolvido inicialmente com MySQL, porém,
+desacoplado suficientemente para ser utilizado em qualquer banco de
+dados; desde que utilizem as mesmas entidades e utilize o Design Pattern
+Abstract Factory. <br />
+<br />
+Existe uma interface padrão para todos os bancos de dados em: <strong>LOCAL/application/cms/mvc/model/AbstractDataAccessFactory.php</strong>,
+e esta deve ser implementada em qualquer fábrica de objetos de qualquer
+banco de dados. Cada banco específico possuí seu próprio objeto que
+implementa o modelo de dados mysql de cada recurso do sistema. Para o
+mysql é <strong>LOCAL/application/cms/mvc/model/mysql/MySQLDataAccessFactory.php</strong>
+</p>
+<p>Cada recurso possuí seus modelos ( camada que implementa a lógica
+de negócios de cada recurso ), e nesta pasta é necessário uma interface
+para criação de acesso à dados, por exemplo, no recurso de usuários,
+existe a interface: <strong>LOCAL/application/cms/mvc/user/model/UserDataAccess.php</strong>;
+pois isso deixa as ações claramente definidas independente do banco de
+dados a ser utilizado. Então, no mesmo local existe a pasta mysql com
+uma classe que implementa essa interface e trabalha específicamente com
+o mysql; a mesma coisa seria para o postgree, mongodb, oracle, ....</p>
+<p>Cada modelo criado é preciso informar a implementação do banco à
+que se refere e a classe abstrata, que são, respectivamente, no caso do
+mysql, MySQLDataAccessFactory.php e AbstractDataAccessFactory.php.</p>
+</div>
+
+
+<!-- SEGURANÇA -->
+<div class="item"><a id="folder_permission"></a>
+<h1>Permissões de pastas</h1>
+<p>O sistema foi desenvolvido em cima de uma plataforma Unix - Linux
+mais específicamente -, e as permissões de pastas trabalham em cima da
+base binária Octal, utilizando 3 níveis de tipos de usuários - Dono,
+Grupo, Outros -. E por motivos de segurança, evite ao máximo possível
+setar todas as permissões para o nível Outros. É recomendado que atribua
+a configuração 775(Dono 7, Grupo 7, Outros 5).</p>
+Pastas que necessitam de permissão:
+<p>LOCAL/public/upload -> 775<br />
+LOCAL/public/upload/pastas_internas -> 775<br />
+LOCAL/application/cms/smarty/compiled -> 775<br />
+LOCAL/application/cms/smarty/cache -> 775</p>
+</div>
+
+
+<!-- SEGURANÇA -->
+<div class="item"><a id="system_permission"></a>
+<h1>Permissões do Sistema</h1>
+<p>Existe 3 níveis de usuários no sistema - Administrador,
+Moderador, Outros -. Em cada controlador é definido se tal nível pode ou
+não acessá-lo. Por exemplo: <pre>
+	/**
+	 * @return	boolean
+	 * @see		Controller::canHandle()
+	 */
+	public function canHandle() {
+
+		// define a permissão
+		
+		//Permissão somente para o admin
+		$this->permission = parent::PERMISSION_ADMIN;
+		
+		//Permissão somente para o admin e moderador
+		$this->permission = parent::PERMISSION_ADMIN | parent::PERMISSION_MODERATOR;
+		
+		//Permissão para todos
+		$this->permission = parent::PERMISSION_ADMIN | parent::PERMISSION_MODERATOR | parent::PERMISSION_OTHERS;
+		
+		// Faça a combinação que desejar ;)
+
+		// verifica se o usuário está autenticado e é o controlador correto
+		if(Auth::getInstance()->isAuth() && $_GET[ 'c' ] == 'church'){
+			// retorna se o controlador pode ser manipulado pelo nível do usuário que está logado
+			return $this->canBeHandleBy( $_SESSION['CMS']['user']['group'] );
+		}
+
+		return false;
+	}
+</pre></p>
+</div>
+
+
+<!-- SEGURANÇA -->
+<div class="item"><a id="create_resource"></a>
+<h1>Criando novos recursos</h1>
+<br />
+<br />
+<a id="basic"></a>
+<h1>Criando um recurso básico</h1>
+<p>Um recurso básico possúi somente texto. Exemplo a ser analizado:
+LOCAL/cms/mvc/ministry</p>
+<p>Arquivos que serão criados:
+LOCAL/application/cms/mvc/NOME_DO_RECURSO/model/entity/ENTIDADE_QUE_REPRESENTA_UM_REGISTRO.php
+: Este arquivo é uma classe final que representa um registro do banco de
+dados.<br />
+LOCAL/application/cms/mvc/NOME_DO_RECURSO/model/RECURSODataAccess.php.php
+: Este arquivo é uma interface comum para todos os acesso de dados do
+recurso.<br />
+LOCAL/application/cms/mvc/NOME_DO_RECURSO/model/mysql/MySQLRECURSODataAccess.php
+: Implementação de um acesso de dados de um bd mysql.<br />
+LOCAL/application/cms/mvc/NOME_DO_RECURSO/view/RECURSOView.php : View do
+recurso.<br />
+LOCAL/application/cms/mvc/NOME_DO_RECURSO/controller/RECURSOController.php
+: Controlador do recurso.<br />
+</p>
+<p>Depois de criado os modelos, é necessário informar a interface e
+a implementação do respectivo banco de dados. <br />
+<br />
+
+AbstractDataAccessFactory.php: <pre>
+		
+		...
+		
+		/**
+		 * Cria uma instância da Model DO SEU RECURSO
+		 * @return RECURSODataAccess
+		 */
+		public abstract function createRECURSODataAccess();
+		
+		...
+		
+	</pre> <br />
+<br />
+
+MySQLDataAccessFactory.php: <pre>
+		
+		...
+		
+		/**
+		 * @see AbstractDataAccessFactory::createRECURSODataAccess
+		 * @return RECURSODataAccess
+		 */
+		public function createRECURSODataAccess(){
+			return new MySQLRECURSODataAccess();
+		}
+		
+		...
+		
+	</pre>
+
+<p>Com os modelos ja criados é hora de criar a camada de
+vizualização:
+LOCAL/application/cms/mvc/NOME_DO_RECURSO/view/RECURSOView.php: <pre>
+		
+		/**
+		 *
+		 * @var string
+		 */
+		protected $contentPage = 'RECURSO/view/templates/default.html'; // página padrão de conteúdo
+	
+	
+		/**
+		 * @var Recurso
+		 */
+		private $recurso; // um registro do banco de dados que será necessário para popular o form de edição
+	
+		/**
+		 *
+		 * @var array
+		 */
+		private $recursos; // diversos registros que serão listados na página default 
+		
+		
+		public function __construct(){
+			parent::__construct();
+	
+			$resourceBundle = Application::getInstance()->getBundle();
+	
+			// titulo da página e descrição que são recuperadas do arquivo de intercionalização
+			$this->setResourceTitle( $resourceBundle->getString( 'RECURSO_PAGE_TITLE' ) );
+			$this->setResourceDescription( $resourceBundle->getString( 'RECURSO_PAGE_DESCRIPTION' ) );
+
+		}
+		
+		/**
+		 * @see CrudView::setTemplateForEdit
+		 * @throws LogicException Quando não haver nenhum registro para popular o formulário
+		 */
+		public function setTemplateForEdit(){
+			$resourceBundle = Application::getInstance()->getBundle();
+	
+			// quando não haver nenhum registro para popular o form
+			if( !$this->recurso ){
+				throw new LogicException( 'É necessário informar um recurso à ser editado.' );
+			}
+	
+			// seta a página de conteúdo de edição
+			$this->setContentPage( 'RECURSO/view/templates/form.html' );
+			// titulo da página de edição
+			$this->setFormTitle( $resourceBundle->getString( 'RECURSO_FORM_EDIT' ) );
+	
+			//Popula os campos do formulário do template
+			$this->assign( 'recursoTitle', $this->recurso->getRecursoTitle() );
+			$this->assign( 'recursoInformations', $this->recurso->getRecursoInformations() );
+			$this->assign( 'idRecurso', $this->recurso->getIdRecurso() );
+		}
+	
+		/**
+		 * @see CrudView::setTemplateForCreate
+		 */
+		public function setTemplateForCreate(){
+			$resourceBundle = Application::getInstance()->getBundle();
+			$this->setContentPage( 'RECURSO/view/templates/form.html' );
+			$this->setFormTitle( $resourceBundle->getString( 'RECURSO_FORM_CREATE' ) );
+		}
+	
+		/**
+		 * @see CrudView::setTemplateForDefault
+		 */
+		public function setTemplateForDefault(){
+			$resourceBundle = Application::getInstance()->getBundle();
+	
+			$this->setContentPage( 'RECURSO/view/templates/default.html' );
+		}
+		
+		/**
+		 * 
+		 * @param Recurso $recurso
+		 */
+		public function setRecurso( Recurso $recurso ){
+			$this->recurso = $recurso;
+		}
+	
+		/**
+		 *
+		 * @param array $recursos
+		 */
+		public function setRecursos( $recursos ){
+			$this->recursos = $recursos;
+			$this->assign( 'dataTable', $recursos );
+		}
+		
+		</pre>
+		
+		<br />
+		
+		Agora é necessário criar os templates que serão utilizados: LOCAL/cms/mvc/RECURSO/view/templates<br />
+		Serão criados 2 templates, um com o formulário para criação e edição, e outro como página inicial que irá listar os registros.
+		
+		Oberserve os templates neste local: LOCAL/cms/mvc/ministry/view/templates
+		
+		</p>
+		
+		<p>A última camada é do controlador, que irá controlar as requisições feitas pelo usuário: LOCAL/cms/mvc/RECURSO/controller/RECURSOController.php<br />
+		
+		Defina as permissões e o nome do controlador:
+		
+		<pre>
+		
+		public function canHandle() {
+
+			// define a permissão. Para mais detalhes observe o tópico Permissões do sistema
+			$this->permission = parent::PERMISSION_ADMIN | parent::PERMISSION_MODERATOR;
+	
+			if(Auth::getInstance()->isAuth() && $_GET[ 'c' ] == 'NOME_DO_RECURSO'){
+				return $this->canBeHandleBy( $_SESSION['CMS']['user']['group'] );
+			}
+	
+			return false;
+		}
+		
+		</pre> 
+		
+		No método handle() é definido o comportamento do controlador:
+		
+		<pre>
+		
+		public function handle() {
+			// defina o comportamento do controlador conforme cada requisição
+			// para mais detalhes observe o seguinte controlador:
+			// LOCAL/application/cms/mvc/ministry/controller/MinistryController.php
+		}
+		
+		</pre>
+		
+		</p>
+
+</p>
+
+<a id="medium"></a>
+<h1>Criando um recurso intermediário</h1>
+<p>Um recurso intermediário possúi texto e cadastro de uma imagem. Exemplo a ser analizado:
+LOCAL/cms/mvc/user</p>
+
+<p>Com os modelos ja criados é hora de criar a camada de
+vizualização. A única que muda do outro módulo é a verificação da imagem e informa-lá ao template:
+LOCAL/application/cms/mvc/NOME_DO_RECURSO/view/RECURSOView.php: <pre>
+		
+		/**
+		 * @see CrudView::setTemplateForEdit
+		 * @throws LogicException Quando não haver nenhum registro para popular o formulário
+		 */
+		public function setTemplateForEdit(){
+			
+			...
+			
+			//Verifica se a imagem do usuário existe
+			//Diretório
+			$dirUrl = trim($resourceBundle->getString('RECURSO_UPLOAD_URL'), '/\\');
+			$dirPath = trim($resourceBundle->getString('RECURSO_UPLOAD_DIR'), '/\\');
+			$photo = $dirUrl .'/'. $this->recurso->getRecursoPhoto();
+			$photoPath = '/'. $dirPath .'/'. $this->recurso->getRecursoPhoto();
+			if( file_exists( $photoPath ) ){
+				$this->assign( 'userPhoto', $photo );
+			}else{
+				$this->assign( 'userPhoto', false );
+			}
+			
+		}
+		
+		...
+		
+		</pre>
+		
+		<br />
+		
+		Agora é necessário criar os templates que serão utilizados: LOCAL/cms/mvc/RECURSO/view/templates<br />
+		Serão criados 2 templates, um com o formulário para criação e edição, e outro como página inicial que irá listar os registros.
+		
+		Oberserve os templates neste local: LOCAL/cms/mvc/user/view/templates
+		
+		</p>
+		
+		<p>A última camada é do controlador, que irá controlar as requisições feitas pelo usuário: LOCAL/cms/mvc/RECURSO/controller/RECURSOController.php<br />
+		
+		No método handle() o que muda é que com a foto é necessário desse código para inserir ela no ftp:
+		
+		<pre>
+		
+		public function handle() {
+			...
+			
+			// se o cliente ja possui uma foto é definida nessa var para ser exlcuída antes de inserir a nova
+			$photoToDelete = 'foto.jpg';
+			
+			//Salva a foto do usuário
+			if( $_FILES['photo']['tmp_name'] ){
+				
+				//Se o cliente possuir uma foto, e estiver cadastrando outra, é deletado a antiga
+				if(isset($photoToDelete)){
+					unlink( $uploadDir . $photoToDelete );
+				}
+
+				$image = new ImageHandler();
+				$image->carrega( $_FILES['photo']['tmp_name'] );
+				$image->redimensiona( 33, 33, 'crop' );
+				$image->grava( $uploadDir . FileHandler::createFileName( $_FILES['photo']['name'] ) );
+			}
+			
+			...
+		}
+		
+		</pre>
+		
+		</p>
+
+</p>
+
+</div>
+
+
+
+</div>
+
+</body>
+</html>

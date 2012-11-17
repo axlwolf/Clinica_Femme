@@ -1,0 +1,20 @@
+/* ========= Form Validate ========= */
+label.error {
+	display: block;
+	color: red;
+	font-style: italic;
+	font-weight: normal;
+}
+
+input.error {
+	/**border: 2px solid red;*/
+	background:#FBF4F5 url(../img/st-forminput-bg.png) repeat-x top;
+	border:1px solid #E2B5BE;
+	border-top:1px solid #B28F96;
+	border-radius:2px;
+	color:#99626B;
+	font:12px Arial, Helvetica, sans-serif;
+	padding:8px 6px;
+}
+
+h2.error { color:#E76463; margin: 5px auto 10px auto; text-align: center; }
