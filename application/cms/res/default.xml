@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pro:resource xmlns:pro="urn:CMS/pro" id="default">
+
+	<pro:resource id="SHORT_TITLE" value="Gerenciador de Conteúdo" />
+	<pro:resource id="MAIN_TITLE" value="Martinhago - Gerenciador de Conteúdo" />
+	
+	<!-- values: production; development -->
+	<pro:resource id="STAGING" value="production" />
+
+	<pro:resource id="ERROR">
+		<pro:resource id="ERROR_TITLE" value="Opz, alguma coisa saiu errada" />
+		<pro:resource id="ERROR_BUTTON" value="Voltar" />
+	</pro:resource>
+	
+	<pro:resource id="MONEY_FORMAT" value="%.2n" />
+	
+	<pro:resource id="CONFIGS">
+		<pro:resource id="CONFIGS_PAGE_TITLE" value="CONFIGURAÇÕES DO SITE" />
+		<pro:resource id="CONFIGS_PAGE_DESCRIPTION" value="Edite aqui as configurações do seu site." />
+		<pro:resource id="CONFIGS_FORM_EDIT" value="Editando as configurações" />		
+	</pro:resource>
+	
+	<pro:resource id="PROFILE">
+		<pro:resource id="PROFILE_PAGE_TITLE" value="PERFIL" />
+		<pro:resource id="PROFILE_PAGE_DESCRIPTION" value="Edite aqui seu perfil." />
+		<pro:resource id="PROFILE_FORM_EDIT" value="Editando meu perfil" />
+		
+		<pro:resource id="PROFILE_IMAGE_DEFAULT" value="imagem_padrao.png" />		
+	</pro:resource>
+
+	<!--
+	Dados de conexão com banco de dados MySQL 
+	-->
+	<pro:resource id="MYSQL">
+		<pro:resource id="MYSQL_DSN" value="mysql:host=186.202.152.28;dbname=ministerioreco1" />
+		<pro:resource id="MYSQL_USER" value="ministerioreco1" />
+		<pro:resource id="MYSQL_PSWD" value="hu6J0TyY10M" />
+	</pro:resource>
+
+	<!--
+	Menu da aplicação 
+	-->
+	<pro:resource id="MENU">
+		<pro:resource id="MENU_HOME_ITEM" value="Início">
+			<pro:resource id="MENU_HOME_LINK" value="?c=home" />
+		</pro:resource>
+
+		<pro:resource id="MENU_USER_ITEM" value="Usuários">
+			<pro:resource id="MENU_USER_LINK" value="?c=user" />
+		</pro:resource>
+		
+	</pro:resource>
+
+	<!--
+	Home
+	-->
+	<pro:resource id="HOME">
+		<pro:resource id="HOME_PAGE_TITLE" value="HOME" />
+		<pro:resource id="HOME_PAGE_DESCRIPTION" value="" />
+	</pro:resource>
+
+	<!--
+	Users
+	-->
+	<pro:resource id="USERS">
+		<pro:resource id="USERS_PAGE_TITLE" value="USUÁRIOS" />
+		<pro:resource id="USERS_PAGE_DESCRIPTION" value="Gerencie os usuários do sistema" />
+		<pro:resource id="USERS_FORM_CREATE" value="Criando novo usuário" />
+		<pro:resource id="USERS_FORM_EDIT" value="Editando usuário" />
+
+		<pro:resource id="USERS_UPLOAD_DIR" value="/home/storage/7/cd/96/ministeriorecomecar1/public_html/admin/public/upload/user/" />
+		<pro:resource id="USERS_UPLOAD_URL"
+			value="http://ministeriorecomecar.com/admin/public/upload/user/" />
+	</pro:resource>
+	
+</pro:resource>

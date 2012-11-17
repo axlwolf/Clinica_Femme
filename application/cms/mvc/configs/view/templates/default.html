@@ -1,0 +1,68 @@
+							<!-- START SIMPLE FORM -->
+                        	<div class="simplebox grid740">
+                        	
+                            	<!--  <div class="titleh">
+                                	<h3>{$formTitle|default:"Utilize o formulário abaixo:"}</h3>
+                                </div>-->
+                                <div class="body">
+                                                                
+                                  <form id="form2" name="form2" method="post" action="?c={$smarty.get.c}" enctype="multipart/form-data">
+                                  
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Título do site:</span>	
+                                        <input name="title" type="text" id="title" style="width:510px" value="{$configTitle|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Breve descrição do site:</span>	
+                                        <textarea name="description" id="description" style="width:510px" rows="3" cols="47">{$configDescription|default:""}</textarea> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">E-mail de contato:</span>	
+                                        <input name="email" type="text" id="email" style="width:510px" value="{$configEmail|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Palavras-chaves:</span>	
+                                        <input name="keywords" type="text" id="keywords" style="width:510px" value="{$configKeyWords|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Script Google Analytics:</span>	
+                                        <textarea name="script" id="script" style="width:510px" rows="3" cols="47">{$configScriptGA|default:""}</textarea> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                   <!--  <div class="st-form-line">	
+                                    	<span class="st-labeltext">Report ID do Google Analytics:</span>	
+                                        <input name="GAId" type="text" id="GAId" style="width:510px" value="{$configGAId|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Conta do Google Analytics:</span>	
+                                        <input name="GAAcc" type="text" id="GAAcc" style="width:510px" value="{$configGAAcc|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Senha da conta do Google Analytics:</span>	
+                                        <input name="GAPassword" type="password" id="GAPassword" style="width:510px" value="" /> 
+                                    <div class="clear"></div>
+                                    </div> -->
+                                    
+                                    <div class="button-box">
+                                   	  <input type="submit" name="save" id="button" value="Salvar" class="st-button"/>
+                                   	  <input type="button" name="button" id="button2" value="Cancelar" class="st-clear cancel-form"/>
+                                    </div>
+                                    
+                                  </form>
+                                  
+                                </div>
+                            </div>
+                        <!-- END SIMPLE FORM -->

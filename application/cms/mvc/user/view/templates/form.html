@@ -1,0 +1,77 @@
+							
+							<!-- erros de validação -->
+                            <script type="text/javascript" charset="utf-8" src="js/form-validate/user.js"></script>
+                            <h2 class="error" style="display:none;"></h2>
+							
+							
+							<!-- START SIMPLE FORM -->
+                        	<div class="simplebox grid740">
+                        	
+                            	<div class="titleh">
+                                	<h3>{$formTitle|default:"Utilize o formulário abaixo:"}</h3>
+                                </div>
+                                <div class="body">
+                                                                
+                                  <form id="form2" name="form2" method="post" action="?c=user" enctype="multipart/form-data">
+                                  
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Nome:</span>	
+                                        <input name="name" class="required" type="text" class="st-forminput" id="name" style="width:510px" value="{$userName|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                  
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">E-mail:</span>	
+                                        <input name="email" class="required email" type="text" class="st-forminput" id="email" style="width:510px" value="{$userEmail|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Login:</span>	
+                                        <input name="login" class="required" type="text" class="st-forminput" id="login" style="width:510px" value="{$userLogin|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Senha:</span>	
+                                        <input name="password" type="password" {if $idUser lt 1}class="required"{/if} id="password" style="width:510px" value=""/> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <!-- This is uniform selectbox - view this item class -->
+                                  	<div class="st-form-line">	<span class="st-labeltext">Tipo de usuário:</span>	
+	                                   	<select name="group" id="group" class="uniform">
+	                           	  		  <option value="1" {if $idGroup eq 1}selected="selected"{/if}>Administrador</option>
+	                           	  		  <option value="2" {if $idGroup eq 2}selected="selected"{/if}>Editor da palavra do pastor</option>
+	                           	  		  <option value="3" {if $idGroup eq 3}selected="selected"{/if}>Editor de fotos</option>
+	                               		</select>
+                                    	<div class="clear"></div> 
+                                    </div>
+                                    
+                                    {if $userPhoto|default:false}
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Foto:</span>	
+                                        <img src="{$userPhoto}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    {/if}
+                                    
+                                    <!-- This is uniform upload input -->
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Selecione uma foto:</span>	
+                                        <input type="file" name="photo" class="uniform"/>
+                                  		<div class="clear"></div> 
+                                    </div>
+                                    
+                                    
+                                    <div class="button-box">
+                                   	  <input type="hidden" name="idUser" value="{$idUser|default:0}" />
+                                   	  <input type="submit" name="save" id="button" value="Salvar" class="st-button"/>
+                                   	  <input type="button" name="button" id="button2" value="Cancelar" class="st-clear cancel-form"/>
+                                    </div>
+                                    
+                                  </form>
+                                  
+                                </div>
+                            </div>
+                        <!-- END SIMPLE FORM -->
