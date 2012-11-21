@@ -1,0 +1,189 @@
+<?php
+/**
+ * Classes e objetos relacionados com os controladores de lojas virtuais
+ * @package	cms.mvc.photo.controller
+ */
+
+require_once 'cms/mvc/controller/Controller.php';
+require_once 'cms/mvc/view/success/SuccessView.php';
+require_once 'cms/mvc/photo/view/gallery/PhotoGalleryView.php';
+require_once 'cms/mvc/photo/model/entity/PhotoGallery.php';
+require_once 'cms/util/date/DateFormat.php';
+require_once 'cms/util/date/DateType.php';
+require_once 'cms/mvc/model/Auth.php';
+
+
+/**
+ * Controlador de Galeria de fotos
+ * @author	Mauricio Giacomini Girardello
+ */
+class PhotoGalleryController extends Controller {
+
+
+	/**
+	 *
+	 * @var string
+	 */
+	private $uploadDirPath;
+
+	/**
+	 *
+	 * @var string
+	 */
+	private $uploadDirURL;
+
+
+	/**
+	 * @return	boolean
+	 * @see		Controller::canHandle()
+	 */
+	public function canHandle() {
+
+		// define a permissão
+		$this->permission = parent::PERMISSION_ADMIN | parent::PERMISSION_OTHERS;
+
+		if(Auth::getInstance()->isAuth() && $_GET[ 'c' ] == 'photo-gallery'){
+			return $this->canBeHandleBy( $_SESSION['CMS']['user']['group'] );
+		}
+
+		return false;
+	}
+
+	/**
+	 * @see		Controller::handle()
+	 */
+	public function handle() {
+		//Instancia o bd
+		$galleryDataAccess = Registry::getInstance()->get( 'dataAccessFactory' )->createPhotoGalleryDataAccess();
+		$categoryDataAccess = Registry::getInstance()->get( 'dataAccessFactory' )->createPhotoCategoryDataAccess();
+
+		//Gerenciador de pacotes
+		$resourceBundle = Application::getInstance()->getBundle();
+
+		// atribui os diretórios de upload
+		$this->uploadDirPath = str_replace( '//', '/', '/'.trim($resourceBundle->getString('PHOTOS_UPLOAD_DIR') , '/\\'));
+		$this->uploadDirURL = trim($resourceBundle->getString('PHOTOS_UPLOAD_URL'), '/\\');
+
+		//Deleta um registro
+		$delete = (int) $_GET['del'];
+
+		if( $delete ){
+			$galleryDataAccess->delete( $delete );
+			if( $this->removeDirectory( $this->uploadDirPath .'/'. $delete ) ){
+				//View de sucesso
+				$successView = new SuccessView( 'A Galeria foi deletada com sucesso!' );
+				$successView->setMessage( 'A galeria e todas suas fotos foram excluídas. Para voltar ao ínicio do módulo clique no botão abaixo.' );
+				$successView->show();
+			}else{
+				throw new RuntimeException( 'Não foi possível excluir as fotos da galeria.' );
+			}
+		}
+
+		// salva uma requisição de criação
+		if( $_POST['save'] || $_POST['upload-images'] ){
+			
+			$datetime = new DateFormat( $_POST['datetime'] );
+			
+			//Atribui a configuração de um usuário
+			$gallery = new PhotoGallery();
+			$gallery->setIdCategory( (int) $_POST['idCategory'] );
+			$gallery->setGalleryDateTime( $datetime->format( DateType::DATETIME_PT, DateType::DATETIME_MYSQL ) );
+			$gallery->setGalleryDescription( $_POST['description'] );
+			$gallery->setGalleryPlace( $_POST['place'] );
+			$gallery->setGalleryTitle( $_POST['title'] );
+			
+
+			//Se for para editar, é atribuído um i
+			$id = (int) $_POST['idGallery'];
+			if($id){
+				$gallery->setIdGallery( $id );
+			}
+
+			//Salva os dados
+			$galleryDataAccess->save( $gallery );
+
+			//Diretório de upload
+			$uploadDir = $this->uploadDirPath . '/' . $gallery->getIdGallery();
+
+			if( !is_dir( $uploadDir ) ){
+				mkdir( $uploadDir, 0755);
+			}
+
+			if( !isset( $_POST['upload-images'] ) ){
+				//Título da página de sucesso
+				if($id){
+					$message = "A Galeria foi editado com sucesso.";
+				}else{
+					$message = "A Galeria foi cadastrado com sucesso.";
+				}
+
+				//View de sucesso
+				$successView = new SuccessView( $message );
+				$successView->setMessage( 'A operação foi concluída com sucesso. Para voltar ao ínicio do módulo clique no botão abaixo.' );
+				$successView->show();
+			}else{
+				$_GET['a'] = 'upload_images';
+				$_GET['id'] = $gallery->getIdGallery();
+			}
+
+		}
+
+		//View de usuário
+		$view = new PhotoGalleryView();
+
+		switch($_GET['a']){
+			case 'edit':
+				$view->setGallery( $galleryDataAccess->getGalleryByID( (int) $_GET['id'] ) );
+				$view->setCategories( $categoryDataAccess->getCategories() );
+				$view->setTemplateForEdit();
+				break;
+			case 'create':
+				$view->setCategories( $categoryDataAccess->getCategories() );
+				$view->setTemplateForCreate();
+				break;
+			case 'upload_images':
+
+				//Recupera os dados de um produto
+				$gallery = $galleryDataAccess->getGalleryByID( (int) $_GET['id'] );
+
+				//Deleta uma foto do produto
+				if( $_GET['delPhoto'] ){
+					$dir = $this->uploadDirPath . '/' . $gallery->getIdGallery();
+						
+					//Verifica se a imagem existe e então a exclui
+					if( file_exists( $dir .'/thumb/'.$_GET['delPhoto'] ) ){
+						if( !unlink( $dir .'/thumb/'.$_GET['delPhoto'] ) || !unlink( $dir .'/big/'.$_GET['delPhoto'] )){
+							throw new RuntimeException( 'Não foi possível excluir esta foto.' );
+						}
+					}
+				}
+
+				$view->setGallery( $gallery );
+				$view->setTemplateForImages();
+				break;
+			default:
+				$view->setGalleries( $galleryDataAccess->getGalleries() );
+				$view->setTemplateForDefault();
+				break;
+		}
+
+		$view->show();
+	}
+
+	/**
+	 * Remove um diretório e todo seu conteúdo
+	 * @param string $dir Diretório a ser apagado
+	 */
+	private function removeDirectory( $dir ) {
+		foreach( glob( $dir . '/*' ) as $file ){
+			if( is_dir( $file ) ){
+				self::removeDirectory( $file );
+			}else{
+				unlink( $file );
+			}
+		}
+		rmdir( $dir );
+		return true;
+	}
+
+}

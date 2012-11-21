@@ -1,0 +1,70 @@
+                      			<!-- erros de validação -->
+                            <script type="text/javascript" charset="utf-8" src="js/form-validate/news.js"></script>
+                            
+                            <h2 class="error" style="display:none;"></h2>
+                        	
+                            	<div class="titleh">
+                                	<h3>{$formTitle|default:"Utilize o formulário abaixo:"}</h3>
+                                </div>
+                                <div class="body">
+                                                                
+                                  <form id="form2" name="form2" method="post" action="?c={$smarty.get.c}" enctype="multipart/form-data">
+                                  
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Data:</span>	
+                                        <input name="date" type="text" class="required datepicker-input" style="position: relative; z-index: 100000;" id="date" value="{$newsDate|date_format:"%d/%m/%Y"|default:""}" /> 
+                                    <div class="clear" style="z-index: 510;"></div>
+                                    </div>
+
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Categoria:</span>	
+                                        <select name="idCategory" id="idCategory" class="uniform">
+	                           	  		  {html_options options=$categoryOptions selected=$idCategory}
+	                               		</select> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Título:</span>	
+                                        <input name="title" class="required" type="text" class="st-forminput" id="title" style="width:460px" value="{$newsTitle|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+
+<div class="st-form-line">	                                                                                
+			                        	<div class="simplebox">
+			                            	<div class="titleh">
+			                                	<h3>Resumo da notícia</h3>
+			                                </div>
+			                                <div class="body">
+			                                  <textarea name="resume" id="resume" class="st-forminput" rows="3" cols="47" style="width:96.5%;">{$newsResume|default:""}</textarea>
+			                                </div>
+			                            </div>                                        
+                                         
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	                                                                                
+			                        	<div class="simplebox">
+			                            	<div class="titleh">
+			                                	<h3>Texto da notícia</h3>
+			                                </div>
+			                                <div class="body">
+			                                  <textarea name="text" id="text" class="st-forminput required" rows="10" cols="47" style="width:96.5%;">{$newsText|default:""}</textarea>
+			                                </div>
+			                            </div>                                        
+                                         
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    
+                                    <div class="button-box">
+                                   	  <input type="hidden" name="idNews" id="idNews" value="{$idNews|default:0}" />
+                                   	  <input type="submit" name="save" id="button" value="Salvar" class="st-button"/>
+                                   	  <input type="submit" name="upload-images" id="upload-images" value="Salvar e adicionar imagens" class="st-button"/>
+                                   	  <input type="button" name="button" id="button2" value="Cancelar" class="st-clear cancel-form"/>
+                                    </div>
+                                    
+                                  </form>
+                                  
+                                </div>
+                        <!-- END SIMPLE FORM -->

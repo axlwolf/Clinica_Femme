@@ -1,0 +1,17 @@
+<!-- START TABLE -->
+<div class="simplebox grid740">
+
+	<div id="tabs"  class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+	    	<li class="ui-state-default ui-corner-top {if $tab eq 'banner'}ui-tabs-selected{/if} ui-state-active "><a href="?c=banner">Banners</a></li>
+	        <li class="ui-state-default ui-corner-top {if $tab eq 'place'}ui-tabs-selected{/if} ui-state-active"><a href="?c=banner-place">Locais</a></li>                                    
+		</ul>
+	    
+	    <!-- produtos -->                            
+	    <div id="product-tab" style="z-index: 360; " class="ui-tabs-panel ui-widget-content ui-corner-bottom" >
+	    	{include file=$contentSubPage}
+	    </div>
+		
+	</div>                        
+</div>
+<!-- END TABLE -->

@@ -1,0 +1,57 @@
+							
+							<!-- erros de validação -->
+                            <script type="text/javascript" charset="utf-8" src="js/form-validate/newsletter.js"></script>
+                            <h2 class="error" style="display:none;"></h2>
+							
+							
+							<!-- START SIMPLE FORM -->
+                        	<div class="simplebox grid740">
+                        	
+                            	<div class="titleh">
+                                	<h3>{$formTitle|default:"Utilize o formulário abaixo:"}</h3>
+                                </div>
+                                <div class="body">
+                                                                
+                                  <form id="form2" name="form2" method="post" action="?c={$smarty.get.c}" enctype="multipart/form-data">
+                                  
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Nome:</span>	
+                                        <input name="name" type="text" id="name" style="width:510px" readonly="readonly" value="{$signatureName|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">E-mail:</span>	
+                                        <input name="email" type="text" id="email" style="width:510px" readonly="readonly" value="{$signatureEmail|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Código de ativação:</span>	
+                                        <input name="cod" type="text" id="cod" style="width:510px" readonly="readonly" value="{$signatureCod|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Status da assinatura:</span>
+                                    	
+                                    	<select name="status" id="status" class="uniform">
+	                           	  		  <option value="approved" {if $signatureStatus eq 'approved'}selected="selected"{/if}>Aprovada</option>
+	                           	  		  <option value="canceled" {if $signatureStatus eq 'canceled'}selected="selected"{/if}>Cancelada</option>
+	                           	  		  <option value="pending" {if $signatureStatus eq 'pending'}selected="selected"{/if}>Pendente</option>
+	                               		</select>
+                                    	
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="button-box">
+                                   	  <input type="hidden" name="idSignature" value="{$idSignature|default:0}" />
+                                   	  <input type="submit" name="save" id="button" value="Salvar" class="st-button"/>
+                                   	  <input type="button" name="button" id="button2" value="Cancelar" class="st-clear cancel-form"/>
+                                    </div>
+                                    
+                                  </form>
+                                  
+                                </div>
+                            </div>
+                        <!-- END SIMPLE FORM -->
