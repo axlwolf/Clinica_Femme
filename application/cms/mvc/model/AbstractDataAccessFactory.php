@@ -28,5 +28,47 @@ abstract class AbstractDataAccessFactory {
 	 * @return ConfigDataAccess
 	 */
 	public abstract function createConfigsDataAccess();
+
+	/**
+	 * @return NewsletterDataAccess
+	 */
+	public abstract function createNewsletterDataAccess();
+
+	/**
+	 * @return NewsDataAccess
+	 */
+	public abstract function createNewsDataAccess();
+
+	/**
+	 * @return NewsCategoryDataAccess
+	 */
+	public abstract function createNewsCategoryDataAccess();
+
+/**
+	 * Cria uma instância da Model de Banners
+	 * @return BannerDataAccess
+	 */
+	public abstract function createBannerDataAccess();
+
+	/**
+	 * Cria uma instância da Model de Locais de Banners
+	 * @return BannerPlaceDataAccess
+	 */
+	public abstract function createBannerPlaceDataAccess();
+
+	/**
+	 * @return FAQDataAccess
+	 */
+	public abstract function createFAQDataAccess();
+
+	/**
+	 * @return ScrapbookDataAccess
+	 */
+	public abstract function createScrapbookDataAccess();
+	
+	/**
+	 * @return LinkDataAccess
+	 */
+	public abstract function createLinkDataAccess();
 		
 }
