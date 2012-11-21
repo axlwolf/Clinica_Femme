@@ -1,0 +1,52 @@
+							
+							<!-- erros de validação -->
+                            <script type="text/javascript" charset="utf-8" src="js/form-validate/scrap.js"></script>
+                            <h2 class="error" style="display:none;"></h2>
+							
+							
+							<!-- START SIMPLE FORM -->
+                        	<div class="simplebox grid740">
+                        	
+                            	<div class="titleh">
+                                	<h3>{$formTitle|default:"Utilize o formulário abaixo:"}</h3>
+                                </div>
+                                <div class="body">
+                                                                
+                                  <form id="form2" name="form2" method="post" action="?c={$smarty.get.c}" enctype="multipart/form-data">
+                                  
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Nome:</span>	
+                                        <input name="name" class="required" type="text" id="name" style="width:510px" value="{$scrapName|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">E-mail:</span>	
+                                        <input name="email" class="required email" type="text" id="email" style="width:510px" value="{$scrapEmail|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	                                                                                
+			                        	<div class="simplebox">
+			                            	<div class="titleh">
+			                                	<h3>Recado</h3>
+			                                </div>
+			                                <div class="body">
+			                                  <textarea name="desc" id="desc" class="st-forminput required" rows="5" cols="47" style="width:96.5%;">{$scrapDesc|default:""}</textarea>
+			                                </div>
+			                            </div>                                        
+                                         
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="button-box">
+                                   	  <input type="hidden" name="idScrap" value="{$idScrap|default:0}" />
+                                   	  <input type="submit" name="save" id="button" value="Salvar" class="st-button"/>
+                                   	  <input type="button" name="button" id="button2" value="Cancelar" class="st-clear cancel-form"/>
+                                    </div>
+                                    
+                                  </form>
+                                  
+                                </div>
+                            </div>
+                        <!-- END SIMPLE FORM -->

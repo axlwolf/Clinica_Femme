@@ -1,0 +1,75 @@
+                      			<!-- erros de validação -->
+                            <script type="text/javascript" charset="utf-8" src="js/form-validate/banner.js"></script>
+                            <h2 class="error" style="display:none;"></h2>
+                        	
+                            	<div class="titleh">
+                                	<h3>{$formTitle|default:"Utilize o formulário abaixo:"}</h3>
+                                </div>
+                                <div class="body">
+                                                                
+                                  <form id="form2" name="form2" method="post" action="?c={$smarty.get.c}" enctype="multipart/form-data">
+                                  
+                                  	<!-- This is uniform selectbox - view this item class -->
+                                  	<div class="st-form-line">	<span class="st-labeltext">Local:</span>	
+	                                   	<select name="idBannerPlace" id="idBannerPlace" class="uniform">
+	                           	  		  {html_options options=$places_options selected=$idBannerPlace}
+	                               		</select>
+                                    	<div class="clear"></div> 
+                                    </div>
+                                  
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Título:</span>	
+                                        <input name="title" class="required" type="text" id="title" style="width:460px" value="{$bannerTitle|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Link:</span>	
+                                        <input name="link" type="text" id="link" style="width:460px" value="{$bannerLink|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Quando o banner irá aparecer no site?</span>	
+                                        <input name="dateIn" class="required datepicker-input" type="text" id="dateIn" style="position: relative; z-index: 9999;" value="{$bannerDateIn|date_format:"%d/%m/%Y %H:%M"|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Quando ele irá sair?</span>	
+                                        <input name="dateOut" class="required datepicker-input" type="text" id="dateOut" style="position: relative; z-index: 9999;" value="{$bannerDateOut|date_format:"%d/%m/%Y %H:%M"|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Descrição do banner:</span>	
+                                        <textarea name="description" class="st-forminput" id="description" style="width:460px" rows="3" cols="47">{$bannerDescription|default:""}</textarea> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    {if $bannerFile|default:false}
+                                    <div class="st-form-line">	
+                                    	<span class="st-labeltext">Arquivo:</span>	
+                                        <a href="{$bannerFile}" target="_blank">abrir arquivo</a>
+                                    <div class="clear"></div>
+                                    </div>
+                                    {/if}
+                                    
+                                    <!-- This is uniform upload input -->
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Selecione o arquivo para upload:</span>	
+                                        <input type="file" name="bannerFile" class="uniform {if $idBanner <= 0}required{/if}" />
+                                  		<div class="clear"></div> 
+                                    </div>
+                                    
+                                    
+                                    <div class="button-box">
+                                   	  <input type="hidden" name="idBanner" value="{$idBanner|default:0}" />
+                                   	  <input type="submit" name="save" id="button" value="Salvar" class="st-button"/>
+                                   	  <input type="button" name="button" id="button2" value="Cancelar" class="st-clear cancel-form"/>
+                                    </div>
+                                    
+                                  </form>
+                                  
+                                </div>
+                        <!-- END SIMPLE FORM -->

@@ -1,0 +1,49 @@
+<div class="titleh">
+                        	  <h3>Listagem de notícias</h3>
+                            <div class="shortcuts-icons">
+                                <a class="shortcut tips" href="?c={$smarty.get.c}&a=create" title="Adicionar nova notícia"><img src="img/icons/shortcut/plus.png" width="25" height="25" alt="icon" /></a>
+                            </div>
+                            </div>
+                            
+                            
+                            
+                            
+                            <!-- Start Data Tables Initialisation code -->
+							<script type="text/javascript" charset="utf-8">
+								$(document).ready(function() {
+									oTable = $('#example').dataTable({
+										"bJQueryUI": true,
+										"sPaginationType": "full_numbers"
+									});
+								});
+							</script>
+                            <!-- End Data Tables Initialisation code -->
+
+
+							<table cellpadding="0" cellspacing="0" border="0" class="display data-table" id="example">
+                            
+								<thead>
+									<tr>
+                                    	<th>Título</th>
+                                    	<th>Categoria</th>
+                                    	<th>Data</th>
+                                        <th>Ações</th>
+                                    </tr>
+                               	</thead>
+                                
+                                <tbody>
+                                
+                                {foreach item=news from=$dataTable}
+                                	<tr class="gradeA">
+                                    	<td>{$news->getNewsTitle()}</td>
+                                    	<td>{$news->getCategoryName()}</td>
+                                    	<td>{$news->getNewsDate()|date_format:"%d/%m/%y"}</td>
+                                    	<td class="center"> 
+                                    		<a href="?c={$smarty.get.c}&a=edit&id={$news->getIdNews()}"><img src="img/icons/sidemenu/file_edit.png" /></a>
+                                    		<a class="delete-row" href="?c={$smarty.get.c}&del={$news->getIdNews()}"><img src="img/icons/sidemenu/trash.png" /></a>
+                                    	</td>
+                                    </tr>
+                                {/foreach}  
+                                    
+								</tbody>
+							</table>

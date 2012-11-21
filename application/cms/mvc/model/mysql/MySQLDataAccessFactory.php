@@ -9,6 +9,27 @@ require_once 'cms/mvc/user/model/mysql/MySQLUserDataAccess.php';
 require_once 'cms/mvc/group/model/mysql/MySQLGroupDataAccess.php';
 require_once 'cms/mvc/configs/model/mysql/MySQLConfigsDataAccess.php';
 
+
+// módulo de banners
+require_once 'cms/mvc/banner/model/mysql/MySQLBannerDataAccess.php';
+require_once 'cms/mvc/banner/model/mysql/MySQLBannerPlaceDataAccess.php';
+
+// módulo de newsletter
+require_once 'cms/mvc/newsletter/model/mysql/MySQLNewsletterDataAccess.php';
+
+// módulo de mural de recados
+require_once 'cms/mvc/scrapbook/model/mysql/MySQLScrapbookDataAccess.php';
+
+// módulo de links
+require_once 'cms/mvc/link/model/mysql/MySQLLinkDataAccess.php';
+
+// módulo de faq
+require_once 'cms/mvc/faq/model/mysql/MySQLFAQDataAccess.php';
+
+// módulo de notícias
+require_once 'cms/mvc/news/model/mysql/MySQLNewsDataAccess.php';
+require_once 'cms/mvc/news/model/mysql/MySQLNewsCategoryDataAccess.php';
+
 /**
  * Fábrica de objetos Model que utilizam acesso a dados em
  * bancos MySQL
@@ -49,9 +70,74 @@ class MySQLDataAccessFactory extends AbstractDataAccessFactory {
 	public function createGroupDataAccess(){
 		return new MySQLGroupDataAccess();
 	}
-	
+
+	/**
+	 * @see AbstractDataAccessFactory::createBannerDataAccess
+	 * @return BannerDataAccess
+	 */
+	public function createBannerDataAccess(){
+		return new MySQLBannerDataAccess();
+	}
+
+	/**
+	 * @see AbstractDataAccessFactory::createBannerPlaceDataAccess
+	 * @return BannerPlaceDataAccess
+	 */
+	public function createBannerPlaceDataAccess(){
+		return new MySQLBannerPlaceDataAccess();
+	}
+
+	/**
+	 * @see AbstractDataAccessFactory::createConfigDataAccess
+	 * @return PhotoCategoryDataAccess
+	 */
 	public function createConfigsDataAccess(){
 		return new MySQLConfigsDataAccess();
 	}
-	
+
+	/**
+	 * @see AbstractDataAccessFactory::createNewsletterDataAccess
+	 * @return NewsletterDataAccess
+	 */
+	public function createNewsletterDataAccess(){
+		return new MySQLNewsletterDataAccess();
+	}
+
+	/**
+	 * @see AbstractDataAccessFactory::createScrapbookDataAccess
+	 * @return NewsletterDataAccess
+	 */
+	public function createScrapbookDataAccess(){
+		return new MySQLScrapbookDataAccess();
+	}
+
+	/**
+	 * @see AbstractDataAccessFactory::createLinkDataAccess
+	 * @return LinkDataAccess
+	 */
+	public function createLinkDataAccess(){
+		return new MySQLLinkDataAccess();
+	}
+
+	/**
+	 * @see AbstractDataAccessFactory::createFAQDataAccess
+	 * @return FAQDataAccess
+	 */
+	public function createFAQDataAccess(){
+		return new MySQLFAQDataAccess();
+	}
+
+/**
+	 * @return NewsDataAccess
+	 */
+	public function createNewsDataAccess(){
+		return new MySQLNewsDataAccess();
+	}
+
+	/**
+	 * @return NewsCategoryDataAccess
+	 */
+	public function createNewsCategoryDataAccess(){
+		return new MySQLNewsCategoryDataAccess();
+	}
 }

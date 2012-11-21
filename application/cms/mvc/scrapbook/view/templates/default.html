@@ -1,0 +1,51 @@
+<!-- START TABLE -->
+                        <div class="simplebox grid740">
+                        
+                        	<div class="titleh">
+                        	  <h3>Listagem de recados</h3>
+                            </div>
+                            
+                            
+                            
+                            
+                            <!-- Start Data Tables Initialisation code -->
+							<script type="text/javascript" charset="utf-8">
+								$(document).ready(function() {
+									oTable = $('#example').dataTable({
+										"bJQueryUI": true,
+										"sPaginationType": "full_numbers"
+									});
+								});
+							</script>
+                            <!-- End Data Tables Initialisation code -->
+
+
+							<table cellpadding="0" cellspacing="0" border="0" class="display data-table" id="example">
+                            
+								<thead>
+									<tr>
+                                    	<th>Nome</th>
+                                    	<th>E-mail</th>
+                                        <th>Ações</th>
+                                    </tr>
+                               	</thead>
+                                
+                                <tbody>
+                                
+                                {foreach item=scrap from=$dataTable}
+                                	<tr class="gradeA">
+                                    	<td>{$scrap->getScrapName()}</td>
+                                    	<td>{$scrap->getScrapEmail()}</td>
+                                    	<td class="center"> 
+                                    		<a href="?c={$smarty.get.c}&a=edit&id={$scrap->getIdScrap()}"><img src="img/icons/sidemenu/file_edit.png" /></a>
+                                    		<a class="delete-row" href="?c={$smarty.get.c}&del={$scrap->getIdScrap()}"><img src="img/icons/sidemenu/trash.png" /></a>
+                                    	</td>
+                                    </tr>
+                                  {/foreach}  
+                                    
+								</tbody>
+							</table>
+
+                            
+                        </div>
+                        <!-- END TABLE -->

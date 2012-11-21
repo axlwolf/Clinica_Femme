@@ -32,9 +32,9 @@
 	Dados de conexão com banco de dados MySQL 
 	-->
 	<pro:resource id="MYSQL">
-		<pro:resource id="MYSQL_DSN" value="mysql:host=186.202.152.28;dbname=ministerioreco1" />
-		<pro:resource id="MYSQL_USER" value="ministerioreco1" />
-		<pro:resource id="MYSQL_PSWD" value="hu6J0TyY10M" />
+		<pro:resource id="MYSQL_DSN" value="mysql:host=186.202.152.29;dbname=clinicafemme" />
+		<pro:resource id="MYSQL_USER" value="clinicafemme" />
+		<pro:resource id="MYSQL_PSWD" value="a25456cf51901" />
 	</pro:resource>
 
 	<!--
@@ -47,6 +47,26 @@
 
 		<pro:resource id="MENU_USER_ITEM" value="Usuários">
 			<pro:resource id="MENU_USER_LINK" value="?c=user" />
+		</pro:resource>
+
+		<pro:resource id="MENU_SCRAPBOOK_ITEM" value="Mural de Recados">
+			<pro:resource id="MENU_SCRAPBOOK_LINK" value="?c=scrapbook" />
+		</pro:resource>
+		
+		<pro:resource id="MENU_NEWSLETTER_ITEM" value="Newsletter">
+			<pro:resource id="MENU_NEWSLETTER_LINK" value="?c=newsletter" />
+		</pro:resource>
+		
+		<pro:resource id="MENU_BANNER_ITEM" value="Banners">
+			<pro:resource id="MENU_BANNER_LINK" value="?c=banner" />
+		</pro:resource>
+		
+		<pro:resource id="MENU_FAQ_ITEM" value="Perguntas Frequentes">
+			<pro:resource id="MENU_FAQ_LINK" value="?c=faq" />
+		</pro:resource>
+		
+		<pro:resource id="MENU_LINK_ITEM" value="Links Úteis">
+			<pro:resource id="MENU_LINK_LINK" value="?c=links" />
 		</pro:resource>
 		
 	</pro:resource>
@@ -68,9 +88,104 @@
 		<pro:resource id="USERS_FORM_CREATE" value="Criando novo usuário" />
 		<pro:resource id="USERS_FORM_EDIT" value="Editando usuário" />
 
-		<pro:resource id="USERS_UPLOAD_DIR" value="/home/storage/7/cd/96/ministeriorecomecar1/public_html/admin/public/upload/user/" />
+		<pro:resource id="USERS_UPLOAD_DIR" value="/home/storage/7/32/6f/martinhagocreative/public_html/clinicafemme/public/upload/user/" />
 		<pro:resource id="USERS_UPLOAD_URL"
-			value="http://ministeriorecomecar.com/admin/public/upload/user/" />
+			value="http://martinhagocreative.com.br/clinicafemme/public/upload/user/" />
+	</pro:resource>
+
+	
+	<!--
+	mural de recados
+	-->
+	<pro:resource id="SCRAPBOOK">
+		<pro:resource id="SCRAPBOOK_PAGE_TITLE" value="MURAL DE RECADOS" />
+		<pro:resource id="SCRAPBOOK_PAGE_DESCRIPTION" value="Gerencie as os recados do mural" />
+		<pro:resource id="SCRAPBOOK_FORM_EDIT" value="Editando recado" />
+	</pro:resource>
+	
+	<!--
+	links
+	-->
+	<pro:resource id="LINKS">
+		<pro:resource id="LINKS_PAGE_TITLE" value="LINKS" />
+		<pro:resource id="LINKS_PAGE_DESCRIPTION" value="Gerencie as os links úteis" />
+		<pro:resource id="LINKS_FORM_EDIT" value="Editando um link" />
+		<pro:resource id="LINKS_FORM_CREATE" value="Inserindo novo link" />
+	</pro:resource>
+	
+	<!--
+	faq
+	-->
+	<pro:resource id="FAQ">
+		<pro:resource id="FAQ_PAGE_TITLE" value="PERGUNTAS FREQUENTES" />
+		<pro:resource id="FAQ_PAGE_DESCRIPTION" value="Gerencie as perguntas" />
+		<pro:resource id="FAQ_FORM_EDIT" value="Editando uma pergunta" />
+		<pro:resource id="FAQ_FORM_CREATE" value="Inserindo uma pergunta" />
+	</pro:resource>
+
+	<!-- 
+
+	notícias
+	 -->
+	<pro:resource id="NEWS">
+		<pro:resource id="NEWS_PAGE_TITLE" value="NOTÍCIAS" />
+		<pro:resource id="NEWS_PAGE_DESCRIPTION" value="Cadastre, exclua e edite suas notícias." />
+		<pro:resource id="NEWS_FORM">
+			<pro:resource id="NEWS_FORM_NEWS">
+				<pro:resource id="NEWS_FORM_NEWS_CREATE" value="Adicionar nova notícia" />
+				<pro:resource id="NEWS_FORM_NEWS_EDIT" value="Editar uma notícia" />
+			</pro:resource>
+			
+			<pro:resource id="NEWS_FORM_CATEGORY">
+				<pro:resource id="NEWS_FORM_CATEGORY_CREATE" value="Criar nova categoria" />
+				<pro:resource id="NEWS_FORM_CATEGORY_EDIT" value="Editar uma categoria" />
+			</pro:resource>
+		</pro:resource>
+
+		<pro:resource id="NEWS_UPLOAD">
+			<pro:resource id="NEWS_UPLOAD_DIR" value="/home/storage/7/32/6f/martinhagocreative/public_html/clinicafemme/public/upload/news/" />
+			<pro:resource id="NEWS_UPLOAD_URL" value="http://martinhagocreative.com.br/clinicafemme/public/upload/news/" />
+			
+			<pro:resource id="NEWS_UPLOAD_SIZES">
+				<pro:resource id="NEWS_UPLOAD_SIZES_BIG_WIDTH" value="400">
+					<pro:resource id="NEWS_UPLOAD_SIZES_BIG_HEIGHT" value="400"/>
+				</pro:resource>
+				
+				<pro:resource id="NEWS_UPLOAD_SIZES_THUMB_WIDTH" value="100">
+					<pro:resource id="NEWS_UPLOAD_SIZES_THUMB_HEIGHT" value="100"/>
+				</pro:resource>				
+			</pro:resource>
+			
+		</pro:resource>
+	</pro:resource>
+
+	<!--
+	newsletter
+	-->
+	<pro:resource id="NEWSLETTER">
+		<pro:resource id="NEWSLETTER_PAGE_TITLE" value="NEWSLETTER" />
+		<pro:resource id="NEWSLETTER_PAGE_DESCRIPTION" value="Gerencie as as assinaturas de newsletter" />
+		<pro:resource id="NEWSLETTER_FORM_EDIT" value="Editando uma assinatura" />
+	</pro:resource>
+
+	<!--
+	Banners
+	-->
+	<pro:resource id="BANNERS">
+		<pro:resource id="BANNERS_PAGE_TITLE" value="BANNERS" />
+		<pro:resource id="BANNERS_PAGE_DESCRIPTION" value="Gerencie os banners do site" />
+		<pro:resource id="BANNERS_FORM_CREATE" value="Criando novo banner" />
+		<pro:resource id="BANNERS_FORM_EDIT" value="Editando banner" />
+
+		<pro:resource id="BANNERS_PLACE_PAGE_TITLE" value="LOCAIS DE BANNERS" />
+		<pro:resource id="BANNERS_PLACE_PAGE_DESCRIPTION"
+			value="Gerencie os locais do site para cadastrar banners" />
+		<pro:resource id="BANNERS_PLACE_FORM_CREATE" value="Criando novo local" />
+		<pro:resource id="BANNERS_PLACE_FORM_EDIT" value="Editando local" />
+
+		<pro:resource id="BANNERS_UPLOAD_DIR" value="/home/storage/7/32/6f/martinhagocreative/public_html/clinicafemme/public/upload/banner/" />
+		<pro:resource id="BANNERS_UPLOAD_URL"
+			value="http://martinhagocreative.com.br/clinicafemme/public/upload/banner/" />
 	</pro:resource>
 	
 </pro:resource>

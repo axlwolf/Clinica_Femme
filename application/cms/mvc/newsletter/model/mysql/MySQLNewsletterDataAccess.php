@@ -1,0 +1,134 @@
+<?php
+/**
+ * Pacote de classes e objetos das models das palavras do pastor
+ * @package cms.mvc.guestbook.model
+ */
+
+require_once 'cms/mvc/newsletter/model/NewsletterDataAccess.php';
+require_once 'cms/mvc/newsletter/model/entity/Signature.php';
+
+/**
+ * Acesso de dados de mural de recados à um banco MySQL
+ * @author mauricio
+ *
+ */
+class MySQLNewsletterDataAccess implements NewsletterDataAccess {
+
+	/**
+	 * @see NewsletterDataAccess::getByID
+	 * @param integer $id
+	 * @return Signature
+	 */
+	public function getByID( $id ){
+		$pdo = Registry::getInstance()->get( 'pdo' );
+		$stm = $pdo->prepare( 'SELECT * FROM `cms_newsletter` AS `e` WHERE `e`.`idSignature` = :id' );
+		$stm->bindParam( ':id' , $id, PDO::PARAM_INT );
+		$stm->setFetchMode( PDO::FETCH_CLASS , 'Signature' );
+		$stm->execute();
+
+		$signature = $stm->fetch();
+
+		$stm->closeCursor();
+
+		if ( $signature instanceof Signature ) {
+			return $signature;
+		} else {
+			throw new RuntimeException( 'Nenhuma assinatura foi encontrada com o ID fornecido.' );
+		}
+	}
+
+	/**
+	 * @see NewsletterDataAccess::getAll
+	 * @return array[Signature]
+	 */
+	public function getAll(){
+		$pdo = Registry::getInstance()->get( 'pdo' );
+		$stm = $pdo->prepare( 'SELECT * FROM `cms_newsletter` ' );
+		$stm->setFetchMode( PDO::FETCH_CLASS , 'Signature' );
+		$stm->execute();
+
+		return $stm->fetchAll();
+	}
+	
+	/**
+	 * @see NewsletterDataAccess::confirmSignature
+	 * @param string $email
+	 * @param string $cod
+	 * @return boolean
+	 */
+	public function confirmSignature( $email, $cod ){
+		$pdo = Registry::getInstance()->get( 'pdo' );
+		$stm = $pdo->prepare( 'SELECT * FROM `cms_newsletter` WHERE signatureEmail = :email LIMIT 1 ' );
+		$stm->bindParam( ':email' , $email, PDO::PARAM_STR );
+		$stm->setFetchMode( PDO::FETCH_CLASS , 'Signature' );
+		$stm->execute();
+
+		$signature = $stm->fetch();
+		
+		if ( $signature instanceof Signature ) {
+			
+			if( $signature->getSignatureCod() == $cod ){
+				$this->changeStatus( $email, 'approved' );
+				
+				return true;
+			}else
+				throw new RuntimeException( 'O código de ativação está incorreto.' );
+			
+		} else {
+			throw new RuntimeException( 'Este e-mail não está cadastrado em nossas newsletters.' );
+		}
+		
+	}
+	
+	
+	/**
+	 * @see NewsletterDataAccess::removeSignature
+	 * @param string $email
+	 * @return boolean
+	 */
+	public function removeSignature( $email ){
+		$this->changeStatus( $email, 'canceled' );
+		
+	}
+
+	/**
+	 * @param int $id
+	 * @see NewsletterDataAccess::delete
+	 */
+	public function delete( $id ){
+		$pdo = Registry::getInstance()->get( 'pdo' );
+		$stm = $pdo->prepare( 'DELETE FROM `cms_newsletter` WHERE `idSignature` = :id' );
+		$stm->bindParam( ':id' , $id, PDO::PARAM_INT );
+		$stm->execute();
+	}
+	
+	/**
+	 * @param string $status
+	 * @param string $email
+	 * @see NewsletterDataAccess::changeStatus
+	 */
+	public function changeStatus( $email, $status = 'pending' ){
+		$pdo = Registry::getInstance()->get( 'pdo' );
+		$stm = $pdo->prepare( 'SELECT * FROM `cms_newsletter` WHERE signatureEmail = :email LIMIT 1 ' );
+		$stm->bindParam( ':email' , $email, PDO::PARAM_STR );
+		$stm->setFetchMode( PDO::FETCH_CLASS , 'Signature' );
+		$stm->execute();
+
+		$signature = $stm->fetch();
+		
+		if ( $signature instanceof Signature ) {
+			
+			$pdo = Registry::getInstance()->get( 'pdo' );
+			$stm = $pdo->prepare( 'UPDATE cms_newsletter SET signatureStatus = :status WHERE signatureEmail = :email LIMIT 1 ' );
+			$stm->bindParam( ':email', $email, PDO::PARAM_STR );
+			$stm->bindParam( ':status', $status );
+			$stm->execute();
+			
+			return true;
+			
+		} else {
+			throw new RuntimeException( 'Este e-mail não está cadastrado em nossas newsletters.' );
+		}
+	}
+
+}

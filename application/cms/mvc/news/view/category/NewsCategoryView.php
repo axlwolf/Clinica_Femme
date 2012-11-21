@@ -1,0 +1,98 @@
+<?php
+/**
+ * Classes e objetos que representam a View da aplicação
+ * @package	cms.mvc.view
+ */
+
+require_once 'cms/mvc/news/view/AbstractNewsView.php';
+
+/**
+ * Implementação da View de categoria de uma galeria
+ * @author	mauricio
+ */
+class NewsCategoryView extends AbstractNewsView {
+
+	/**
+	 *
+	 * @var string
+	 */
+	protected $contentSubPage = 'category/default.html';
+	
+	/**
+	 * 
+	 * @var NewsCategory
+	 */
+	private $category;
+	
+	/**
+	 * 
+	 * @var array
+	 */
+	private $categories;
+	
+	
+	public function __construct(){
+		parent::__construct();
+		
+		// define a aba que está sendo utilizada pelo usuário
+		$this->setTab( 'category' );
+		
+		$this->categories = array();
+	}
+
+	/**
+	 * @see CrudView::setTemplateForEdit
+	 * @throws LogicException Quando não haver nenhum registro para popular o formulário
+	 */
+	public function setTemplateForEdit(){
+		$resourceBundle = Application::getInstance()->getBundle();
+
+		if( !$this->category ){
+			throw new LogicException( 'É necessário informar uma categoria à ser editada.' );
+		}
+
+		$this->setContentSubPage( 'category/form.html' );		
+		$this->setFormTitle( $resourceBundle->getString( 'NEWS_FORM_CATEGORY_EDIT' ) );
+
+		//Popula os campos do formulário do template
+		$this->assign( 'categoryName', $this->category->getCategoryName() );
+		$this->assign( 'idCategory', $this->category->getIdCategory() );
+	}
+
+	/**
+	 * @see CrudView::setTemplateForCreate
+	 */
+	public function setTemplateForCreate(){
+		$resourceBundle = Application::getInstance()->getBundle();
+		
+		$this->setContentSubPage( 'category/form.html' );
+		$this->setFormTitle( $resourceBundle->getString( 'NEWS_FORM_CATEGORY_CREATE' ) );
+	}
+
+	/**
+	 * @see CrudView::setTemplateForDefault
+	 * @throws LogicException Quando não haver nenhuma lista de registros à ser mostrada
+	 */
+	public function setTemplateForDefault(){
+		$resourceBundle = Application::getInstance()->getBundle();
+		$this->setContentSubPage( 'category/default.html' );
+	}
+	
+	/**
+	 * Atribui uma lista de categorias
+	 * @param array $categories
+	 */
+	public function setCategories( $categories ){
+		$this->categories = $categories;
+		$this->assign( 'dataTable', $this->categories );
+	}
+	
+	/**
+	 * Atribui uma categoria para listar
+	 * @param VirtualStoreCategory $category
+	 */
+	public function setCategory( NewsCategory $category ){
+		$this->category = $category;
+	}
+
+}

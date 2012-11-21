@@ -1,0 +1,59 @@
+<!-- START TABLE -->
+                        <div class="simplebox grid740">
+                        
+                        	<div class="titleh">
+                        	  <h3>Listagem de assinaturas</h3>
+                            </div>
+                            
+                            
+                            
+                            
+                            <!-- Start Data Tables Initialisation code -->
+							<script type="text/javascript" charset="utf-8">
+								$(document).ready(function() {
+									oTable = $('#example').dataTable({
+										"bJQueryUI": true,
+										"sPaginationType": "full_numbers"
+									});
+								});
+							</script>
+                            <!-- End Data Tables Initialisation code -->
+
+
+							<table cellpadding="0" cellspacing="0" border="0" class="display data-table" id="example">
+                            
+								<thead>
+									<tr>
+                                    	<th>Nome</th>
+                                    	<th>E-mail</th>
+                                    	<th>Status</th>
+                                    	<th>Cód. de ativação</th>
+                                        <th>Ações</th>
+                                    </tr>
+                               	</thead>
+                                
+                                <tbody>
+                                
+                                {foreach item=signature from=$dataTable}
+                                	<tr class="gradeA">
+                                    	<td>{$signature->getSignatureName()}</td>
+                                    	<td>{$signature->getSignatureEmail()}</td>
+                                    	<td>
+                                    		{if $signature->getSignatureStatus() eq 'approved'}Aprovada{/if}
+                                    		{if $signature->getSignatureStatus() eq 'canceled'}Cancelada{/if}
+                                    		{if $signature->getSignatureStatus() eq 'pending'}Pendente{/if}
+                                    	</td>
+                                    	<td>{$signature->getSignatureCod()}</td>
+                                    	<td class="center"> 
+                                    		<a href="?c={$smarty.get.c}&a=edit&id={$signature->getIdSignature()}"><img src="img/icons/sidemenu/file_edit.png" /></a>
+                                    		<a class="delete-row" href="?c={$smarty.get.c}&del={$signature->getIdSignature()}"><img src="img/icons/sidemenu/trash.png" /></a>
+                                    	</td>
+                                    </tr>
+                                  {/foreach}  
+                                    
+								</tbody>
+							</table>
+
+                            
+                        </div>
+                        <!-- END TABLE -->

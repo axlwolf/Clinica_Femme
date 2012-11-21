@@ -1,0 +1,27 @@
+							<!-- erros de validação -->
+                            <script type="text/javascript" charset="utf-8" src="js/form-validate/photo/category.js"></script>
+                            <h2 class="error" style="display:none;"></h2>
+                        	
+                            	<div class="titleh">
+                                	<h3>{$formTitle|default:"Utilize o formulário abaixo:"}</h3>
+                                </div>
+                                <div class="body">
+                                                                
+                                  <form id="form2" name="form2" method="post" action="?c={$smarty.get.c}" enctype="multipart/form-data">
+                                  
+                                  	<div class="st-form-line">	
+                                    	<span class="st-labeltext">Nome:</span>	
+                                        <input name="name" class="required" type="text" class="st-forminput" id="name" style="width:510px" value="{$categoryName|default:""}" /> 
+                                    <div class="clear"></div>
+                                    </div>
+                                    
+                                    <div class="button-box">
+                                   	  <input type="hidden" name="idCategory" value="{$idCategory|default:0}" />
+                                   	  <input type="submit" name="save" id="button" value="Salvar" class="st-button"/>
+                                   	  <input type="button" name="button" id="button2" value="Cancelar" class="st-clear cancel-form"/>
+                                    </div>
+                                    
+                                  </form>
+                                  
+                                </div>
+                        <!-- END SIMPLE FORM -->

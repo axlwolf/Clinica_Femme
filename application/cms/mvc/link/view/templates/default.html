@@ -1,0 +1,54 @@
+<!-- START TABLE -->
+                        <div class="simplebox grid740">
+                        
+                        	<div class="titleh">
+                        	  <h3>Listagem de links</h3>
+                        	  <div class="shortcuts-icons">
+                                <a class="shortcut tips" href="?c={$smarty.get.c}&a=create" title="Adicionar novo item"><img src="img/icons/shortcut/plus.png" width="25" height="25" alt="icon" /></a>
+                            </div>
+                            </div>
+                            
+                            
+                            
+                            
+                            <!-- Start Data Tables Initialisation code -->
+							<script type="text/javascript" charset="utf-8">
+								$(document).ready(function() {
+									oTable = $('#example').dataTable({
+										"bJQueryUI": true,
+										"sPaginationType": "full_numbers"
+									});
+								});
+							</script>
+                            <!-- End Data Tables Initialisation code -->
+
+
+							<table cellpadding="0" cellspacing="0" border="0" class="display data-table" id="example">
+                            
+								<thead>
+									<tr>
+                                    	<th>Nome</th>
+                                    	<th>Url</th>
+                                        <th>Ações</th>
+                                    </tr>
+                               	</thead>
+                                
+                                <tbody>
+                                
+                                {foreach item=record from=$dataTable}
+                                	<tr class="gradeA">
+                                    	<td>{$record->getLinkName()}</td>
+                                    	<td>{$record->getLinkUrl()}</td>
+                                    	<td class="center"> 
+                                    		<a href="?c={$smarty.get.c}&a=edit&id={$record->getIdLink()}"><img src="img/icons/sidemenu/file_edit.png" /></a>
+                                    		<a class="delete-row" href="?c={$smarty.get.c}&del={$record->getIdLink()}"><img src="img/icons/sidemenu/trash.png" /></a>
+                                    	</td>
+                                    </tr>
+                                  {/foreach}  
+                                    
+								</tbody>
+							</table>
+
+                            
+                        </div>
+                        <!-- END TABLE -->
