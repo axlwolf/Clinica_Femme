@@ -18,6 +18,26 @@ require_once 'cms/util/Registry.php';
 // módulo de configurações
 require_once 'cms/mvc/configs/controller/ConfigsController.php';
 
+// módulo de banner
+require_once 'cms/mvc/banner/controller/banner/BannerController.php';
+require_once 'cms/mvc/banner/controller/place/BannerPlaceController.php';
+
+// módulo de notícias
+require_once 'cms/mvc/news/controller/news/NewsController.php';
+require_once 'cms/mvc/news/controller/category/NewsCategoryController.php';
+
+// módulo de newsletter
+require_once 'cms/mvc/newsletter/controller/NewsletterController.php';
+
+// módulo de mural de recados
+require_once 'cms/mvc/scrapbook/controller/ScrapbookController.php';
+
+// módulo de link
+require_once 'cms/mvc/link/controller/LinkController.php';
+
+// módulo de faq
+require_once 'cms/mvc/faq/controller/FAQController.php';
+
 /**
  * Classe principal da aplicação
  * @author	mauricio
@@ -46,6 +66,14 @@ class Application {
 		$this->controllerManager->addController( new HomeController() );
 		$this->controllerManager->addController( new ConfigsController() );
 		$this->controllerManager->addController( new UserController() );
+		$this->controllerManager->addController( new NewsletterController() );
+		$this->controllerManager->addController( new NewsController() );
+		$this->controllerManager->addController( new NewsCategoryController() );
+		$this->controllerManager->addController( new BannerController() );
+		$this->controllerManager->addController( new BannerPlaceController() );
+		$this->controllerManager->addController( new ScrapbookController() );
+		$this->controllerManager->addController( new LinkController() );
+		$this->controllerManager->addController( new FAQController() );
 
 		// Controlador de Autenticação
 		$this->controllerManager->addController( new AuthController() );
